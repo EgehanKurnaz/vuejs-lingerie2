@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listeler</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+
+        ul {
+            margin: 0px;
+            margin-top: 10px;
+            padding: 0px;
+            list-style-type: none;
+            width: 300px;
+        }
+
+        li {
+            padding: 5px 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .red {
+            background-color: coral;
+        }
+
+        .green {
+            background-color: limegreen;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <ul>
+            <li v-for="items in list">{{ items }}</li>
+        </ul>
+
+        <ul>
+            <li v-for="sayi in 10">{{ sayi }}</li>
+        </ul>
+        <hr />
+        
+
+        <div v-for="(cv, key) in personel">
+            <b> {{ key }} </b> <span> {{ cv }}</span>
+        </div>
+        <hr />
+
+        Adet : <input type="text" v-model="sellCount">
+        <ul>
+            <li v-for="product in productList" :class="varyok(product)">
+                <span> {{ product.title }} - {{ product.count }} </span>  
+                <button :disabled="product.count == 0" @click="sellProduct(product)"> Satıldı </button>   
+            </li>
+        </ul> 
+        
+        <p v-if="overbuy" style="color: red; font-weight: bold;">Girdiğiniz miktar mevcut adetten fazladır!</p>
+    
+
+    <script>
+        new Vue ({
+            el : '#app',
+            data : {
+                sellCount : 0,
+                overbuy : false,
+                list : ["Elma", "Armut", "Kiraz"],
+                personel : {
+                    name : "Egehan",
+                    lastname : "Kurnaz",
+                    email : "kekokeko@keko.com"
+
+                },
+
+                productList : [
+                    {
+                        title : "Macbook Pro",
+                        price : 100,
+                        count : 10
+                    },
+                    {
+                        title : "iMac",
+                        price : 500,
+                        count : 5
+                    },
+                    {
+                        title : "Klavye",
+                        price : 10,
+                        count : 1000
+                    },
+                    {
+                        title : "iPhone",
+                        price : 50,
+                        count : 0
+                    }
+                ]
+            },
+
+            methods : {
+                sellProduct(product) {
+                    if(this.sellCount > product.count) {
+                        
+                        this.overbuy = true
+
+                    } else {
+
+                        product.count=product.count - this.sellCount
+                        this.overbuy = false
+
+                    }
+
+                },
+                varyok (product) {
+                   return {'green' : product.count > 0, 'red' : product.count <= 0}
+                }
+            },
+
+            computed : {
+              
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+<!-- NELER ÖĞRENDİK 
+Bir kez daha computed ve method arasındaki farkı öğrendik. Computed içine yazılan "varyok(product)" bölümündeki veriler çalışmıyor, çünkü;
+"product.count" objesiyle işlem yapmaya kalkarsan, COMPUTED METHOD GİBİ HER SEFERİNDE YENİDEN TARAMADIĞI VE KENDİ İÇİNDE İŞLEM YAPMAYA
+ÇALIŞTIĞI İÇİN "product.count"'un ne olduğunu anlamıyor ve " 'product.count' object is not defined." hatası veriyor, tam olarak 
+METHOD ve COMPUTED arasındaki fark bu. Daha açacak olursak, "product.count" bu veriyi çalıştırmaya çalıştığımız "li"nin içinde tanım*lanmadığı*
+için, bunu computed algılamıyor, kısacası diğer yerlere define ettiğin şeyi iplemiyor kendi içinde çalıştığı için ve,  birkaç önceki derste de 
+önemli uyarı bölümünde bunu görmüştük. Burda çok daha iyi anlamış olduk aralarındaki fark nedir, ne değildir ve nasıl çalışırlar. -->

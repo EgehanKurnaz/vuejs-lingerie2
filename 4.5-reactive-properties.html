@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactive Properties</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+
+    <div id="app">
+
+        <input type="text" v-model="age"/>
+
+        <p> JavaScript : {{ age >= 18 ? 'Reşittir' : 'Değildir...'}} </p>
+
+        <p> Method : {{ agewriter() }} </p>
+
+        <p> Computed : {{ agewriterComp }} </p>
+        <hr>
+
+        <p> {{ sayi }} </p>
+        <button @click="sayi++"> Arttır koçum</button>
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                age : 0,
+                sayi : 0
+            },
+
+            methods : {
+                agewriter(){
+                console.log("Method çalıştı...")
+                return this.age >= 19 ? 'Reşittir' : 'Değildir...'
+                }
+            },
+
+            computed: {
+                agewriterComp(){
+                    console.log("Computed Çalıştı...")
+                    return this.age >= 19 ? 'Reşittir' : 'Değildir...'
+                }
+            },
+
+            watch : {
+                age(newValue,oldValue) {
+                    console.log("New : " + newValue)
+                    console.log("Old : " + oldValue)
+                    /* Console loga bak */
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>

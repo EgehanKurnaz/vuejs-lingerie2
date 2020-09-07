@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koşullar</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="5-Class-Dynamic-Style.css">
+</head>
+<body>
+    
+
+    <div id="app">
+
+        <p v-if="showbox">Bu sayfa açıldığında görünecek</p>
+        <p v-if ="!showbox">Bu sayfa açıldığında değil butonla görünecek</p>
+        <button @click="showbox = !showbox"> Yarak</button>
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                showbox : true
+       
+            },
+
+        });
+
+
+
+    </script>
+</body>
+</html>

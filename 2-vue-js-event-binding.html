@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js | Necati</title>
+    <link rel="stylesheet" href="2-vue-js-event-binding.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Bu script linki Vue JS'i kullanabilmeni sağlar. -->
+</head>
+
+<body>
+
+    <div id="app" class="bolge">
+
+        <!-- $event özel bir identifier, bunu unutma. Kısaca JS yardımıyla gerçekleşecek
+        bir reaksiyon olacağını belirtiyorsun. Ayrıca ".enter" olayını unutursan, 100. satırdaki
+        aldığın nota bak. -->
+        <input type="number" name="" id="" @keypress.enter="keypr($event)" />
+        <!-- <input type="text" name="" id="" v-on:keypress="keypr($event)" /> -->
+
+
+        <!-- Burada yapmaya çalıştığımız şey herhangi bir eventin reaksiyon yaratması, burada
+        tıklandığında reaksiyon  gerçekleşmesi için v-on:click zeki evlat. -->
+        <button @click="arttir()">Arttır</button>
+        <!-- <button v-on:click="arttir()">Arttır</button> -->
+
+        <!-- "v-on:click"e tanımladığın şey function
+        olduğu için PARANTEZLERLE BERABER ÇAĞIRMAYI UNUTMA -->
+        <button v-on:click="azalt()">Azalt</button>
+        <button v-on:click="sifirla()">Sıfırla</button>
+
+        <p> {{ sayi }}</p>
+        <!-- <p v-text="sayi"></p> Aynı şey. -->
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+                sayi: 0,
+
+            },
+
+            /*Yeni aga, bu da bir JavaScript kekesi, tahmin edebileceğin gibi fonksiyonlardan ibaret.*/
+            methods: {
+                arttir() {
+
+                    /* Buradaki "this" anahtar kelimesi, Vue içinde, datadaki ya da method fark etmez
+                    herhangi bir değere ya da neye ulaşmak istiyorsam fark etmez, kullanmak zorunda olduğum
+                    şeydir tamamen */
+                    this.sayi++
+                        /* Buradaki "++" da değeri 1 arttır demek. Simple right? */
+
+                },
+                azalt() {
+
+                    this.sayi--
+                        /* Eksiltme komutu */
+                },
+                sifirla() {
+
+                    this.sayi = 0
+                        /* Sıfırlama komutu */
+                },
+                keypr(e) {
+                    this.sayi += parseInt(e.target.value)
+
+                    /* if (e.keyCode == 13) {
+
+                         this.sayi += parseInt(e.target.value)
+
+                     } Bu olay 20. satırdaki input keypress'in sonuna .enter koymazsan yapman gereken.*/
+
+                },
+
+                /* Alttakini de görürsen şaşırma, üsttekiyle tamamen aynı şeyler, hiçbir farkları yok.
+                Üstteki gibi sadece isim verilmiş ve parantez koyulmuş şekil de function tanımlar, functionu
+                yazmana gerek yok sadece. Ama bu şekilde de görürsen şaşırma. Bu dosyada üsttekini kullanıcaz. */
+                /* arttir2: function() {
+
+                 },*/
+            }
+        });
+    </script>
+</body>
+
+<!-- ÖNEMLİ BİR DETAY
+Mallık yapıp Vue şeması içindeki data ya da method gibi şeylerin içinde belirttiklerinin
+sonuncusuna virgül koyma, javascriptteki gibi, eğer virgül koyarsan devamında bir şey 
+belirtmeni bekliyor ve belirtmediğin için kodlar sapıtıyor. Küçük ama etkili bir detay. -->
+
+<!-- UFAK ÖZET VE NOTLAR: 
+"v-on:keyup" = tuşa basıp BIRAKTIĞIN an,
+"v-on:keydown" = tuşa bastığın yani aşağı indiği an,
+"v-on:keypress" = ikisinin harman hali. 
+
+"v-on" kısaltması = @
+
+Kısaltmalar JS için de kullanılabildiğinden, Shopify için herhangi bir çalışma yaptığında, bunun
+Vue JS kullanılarak yazıldığını belli etmek adına kısaltma kullanmadan "v-on" vb. şeklinde yazmak
+faydalı olabilir.
+
+keyCode'da, Enter tuşunu ya da herhangi başka bir şeyin değerini bulmak için, browserdan inputa girip 
+inspect yapıp input kutusunda entera bastığımızda ortaya çıkan değeri bularak "keyCode == 13" demiştik,
+oradaki "13" değeri Enter tuşuna bastığımızda arkaplanda oluşan Enter tuşu için bir değerdi, bunu 
+her seferinde böyle inspectleyerek mi bulmaya çalışıcaz? Hayır. Event modifier, tam da bu iş için
+kullanılıyor. Unutma.-->
+
+</html>

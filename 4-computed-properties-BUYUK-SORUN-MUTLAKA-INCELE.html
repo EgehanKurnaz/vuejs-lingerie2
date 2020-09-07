@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computed Properties</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+
+    <div id="app">
+
+        <input type="text" v-model="age"/>
+        <p> {{ age >= 18 ? 'Reşittir' : 'Değildir...'}} </p> <!-- Tek satırla yazabilirsin.-->
+        <p>{{ agewriter() }} </p> <!-- Sadede datadakileri değil, bu şekilde de yazdıklarını burada,
+        gösterebiliyorsun.-->
+        <hr>
+
+        <p>{{ sayi }}</p>
+        <button @click="sayi++"> Arttır koçum</button>
+        <!-- Şimdi burayı  ve aşağıdakileri sadece "sayi" ve metoddaki konsol log ve return this.age
+        haricindeki hiçbir şeyi dikkate almadan söylüyorum. Burada bu şekilde yazdığında,
+        çalıştırarak da görebilirsin, bu butona tıklatığında agewriter içindeki console.logda
+        yazan değer de inspectlediğinde çalışıyor olarak görünüyor, bu büyük bir problem. 
+        Bu yüzden, 4-computed-properties dosyasında çözümü görebilirsin. Buradaki sorunlu hali. -->
+
+        <!-- İyi de abicim bu problem neden oluyor? Vue JS senin "el" kısmında tanımladığın alanı,
+        herhangi bir işlem yaptığında yeniden tarar, oradaki tüm HTML kodlarını kendi süzgecinden
+        geçirir ve senin karşına "yapıştırılmış" haliyle çıkar. Method da bunu daima tetikler. 
+        Yani kısaca her yeni işlemde "#app"
+        içindeki tüm kodlar yenilenir ve dolayısıyla, arkaplanda da "log"da alakasız eventleri de
+        çalıştırmış olursun. Tam olarak bunun nasıl üstesinden gelindiğini görmek için,
+        4-computed- properties dosyasındakileri incele. -->
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                age : 0,
+                sayi : 0
+            },
+
+            methods : {
+                agewriter(){
+                console.log("Metod çalıştı.....")
+                return this.age >= 19 ? 'Reşittir' : 'Değildir...'
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>

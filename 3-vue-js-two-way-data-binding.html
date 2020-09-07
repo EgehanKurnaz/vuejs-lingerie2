@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS 2 way Data Binding</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+
+
+        <!-- V-model güzel bir yöntem, iki datayı birbirine bağlıyor, çalıştırınca göreceğin şey de bu
+        , hem inputtaki değer hem de "p" taginin içindeki değer birbirlerine bağlılar.-->
+        <input type="text" v-model="sayi"/>
+        <p>{{ sayi }}</p>
+        <button @onclick="arttirt">art</button>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                sayi: 1402
+            },
+
+            methods: {
+                arttir(
+                    this.sayi ++
+                )
+            }
+
+
+        });
+
+
+
+    </script>
+    
+</body>
+</html>

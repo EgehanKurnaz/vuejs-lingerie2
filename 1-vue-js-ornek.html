@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js | Necati</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Bu script linki Vue JS'i kullanabilmeni sağlar. -->
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h1> {{ title }} </h1>
+        <button> {{ buttonTitle }} </button>
+        <p> {{ paragraph }} </p>
+        <p v-text="paragraph"></p>
+        <!-- Aşadağıdaki Vue JS üzerindeki paragraf attiribute'si bu şekilde de "v-text" ile de 
+        kullanılabilir. UNUTMA buradaki "paragraph"ın <p> tagiyle hiçbir ilgisi ve alakası yok.
+        Tamamen Vue JS'e tanımlı attiribute ile alakalı.-->
+
+        <a href="{{link}}"></a>
+        <!-- Süslü parantezler tag içinde HİÇBİR ZAMAN çalışmaz, tag içinde herhangi bir yerde
+        datayı çağırmak için aşağıdaki iki örnekteki gibi kullanabilirsin, v-bind: uzun görünse de
+        çok daha sağlıklı bir yoldur. -->
+        <a :href="link">Bu da mı easy</a>
+        <br>
+        <a v-bind:href="link" v-bind:data-id="dataId">Azz yavaş izle</a>
+
+
+        <p> {{ details }} </p>
+        <!-- Vue JS çağırılan objeleri pure haliyle çağırır dolayısıyla
+        bu kodda direkt olarak istediğimiz şekilde <b> koduyla çağırmaz bunun için aşağıdaki
+        gibi v-html ile, verinin içine tanımlı herhangi bir HTML kodu ile birlikte çağırmak
+        istediğin zaman bunu kullan. -->
+        <p v-html="details"></p>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                /* Burayla ilgili ÖNEMLİ not, başlıkların isimlerinin herhangi bir önemi yok, 2. dosyada "sayı" verdin mesela. */
+
+                title: "Başlık",
+                /* Gördüğün üzere bu başlık */
+
+                buttonTitle: "Tıkla Gelsin.",
+                /* Buton içi texti */
+
+                paragraph: "Necati",
+                /* Kısaca <p> tagı gibi paragraf */
+
+                link: "https://www.videosinif.com",
+                /* href için kullanılır "v-bind:" ya da ":" ile */
+
+                dataId: "1",
+                /* var olmayan attribute bile bu şekilde oluşturulabiliyor, dataId örnek */
+
+                details: "<b> Bu bir yarraktır </b>"
+                    /* Kullanışlı, ürün açıklaması olarak kullan. */
+            }
+        });
+    </script>
+</body>
+
+<!-- OLAYLARIN ÖZETİ: 
+Braket içlerinde herhangi bir şey yapmak istiyorsan bunlara event deniyor ve v-eventName şeklinde
+belirtmek gerekiyor, buradaki eventName değişkendir. "v-html, v-bind, v-text, v-on:click" gibi. -->
+
+</html>
